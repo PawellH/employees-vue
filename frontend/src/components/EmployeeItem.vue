@@ -1,20 +1,33 @@
 <template>
-  <div id="employee">
+  <router-link id="employee" :to="link" tag="div">
     <div id="employee__lineTop"></div>
     <div id="employee__main">
-      <img src="/images/user1photo.png" alt="photo" id="employee_img">
+      <div id="employee_img" :style="{'background-image': `url('${photo}')`}" ></div>
       <div id="employee_info">
-        <span>№34545645</span>
-        <span>Гончаров</span>
-        <span>Павел</span>
-        <span>Владимирович</span>
-        <span>fullstack developer</span>
+        <span>#{{id}}</span>
+        <span>{{lastname}}</span>
+        <span>{{first_name}}</span>
+        <span>{{middle_name}}</span>
+        <span>{{position}}</span>
       </div>
     </div>
     <div id="employee__lineBottom"></div>
-  </div>
+  </router-link>
 </template>
 
+<script>
+export default {
+  props: {
+    id: Number,
+    lastname: String,
+    first_name: String,
+    middle_name: String,
+    position: String,
+    photo: String,
+    link: String,
+  },
+};
+</script>
 <style scoped>
 #employee{
   width: 280px;
@@ -48,8 +61,10 @@
 }
 #employee_img{
   width: 80px;
-  height: 100%;
-  display: block;
+  height: 100px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   border: solid 1px #0e0e64;
 }
 #employee_info{

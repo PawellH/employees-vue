@@ -1,23 +1,23 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
-import Index from '../views/Index.vue';
-import EmployeePage from '../views/EmployeePage.vue';
+import Vue from "vue";
+import VueRouter from "vue-router";
+import Index from "../views/Index.vue";
+import EmployeePage from "../views/EmployeePage.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
+    path: "/",
     component: Index,
   },
   {
-    path: '/epage',
+    path: "/epage",
     component: EmployeePage,
   },
 ];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   routes,
 });
 

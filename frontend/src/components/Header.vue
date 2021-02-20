@@ -24,7 +24,8 @@
 #icoImg{
   width: 24px;
   height: 24px;
-  padding: 0px 10px;
+  padding-left:20px;
+  padding-right: 10px;
 }
 h1{
   font-size: 18px;

@@ -1,7 +1,8 @@
 <template>
 <div id="employee-page">
   <Header/>
-  <form id="container-buttons">
+  <main>
+    <form id="container-buttons">
     <button type="submit" id="saveBtn">Сохранить</button>
     <button type="submit" id="deleteBtn">Удалить</button>
   </form>
@@ -63,6 +64,8 @@
         <label>Сотрудник</label>
         <label>должность:</label>
         <input type="text" placeholder="fullstack developer">
+        <label>отдел</label>
+        <input type="text" placeholder="IT">
         <label>дата присоединения:</label>
         <input type="text" placeholder="04.05.2014">
         <label>дата увольнения:</label>
@@ -77,7 +80,49 @@
         <label>Адрес:</label>
         <input type="text" placeholder="г. Минск, ул. Громова 89, кв. 12">
       </div>
+      <div class="edata-item">
+        <label>Проект</label>
+        <label>название:</label>
+        <input type="text" placeholder="plugnet">
+        <label>заказчик:</label>
+        <input type="text" placeholder="ecompani">
+        <label>работа:</label>
+        <input type="text" placeholder="frontend">
+      </div>
+      <div class="edata-item">
+        <label>Опыт</label>
+        <label>имя компании:</label>
+        <input type="text" placeholder="esoft">
+        <label>должность:</label>
+        <input type="text" placeholder="full stack">
+        <label>дата присоединения:</label>
+        <input type="text" placeholder="20.11.2012">
+        <label>дата увольнения:</label>
+        <input type="text" placeholder="20.11.2013">
+        <label>причина увольнения:</label>
+        <input type="text" placeholder="истечение конкракта">
+      </div>
+      <div class="edata-item">
+        <label>Образование</label>
+        <label>вид:</label>
+        <input type="text" placeholder="высшее">
+        <label>учреждение:</label>
+        <input type="text" placeholder="БГУИР">
+        <label>специальность:</label>
+        <input type="text" placeholder="техник-программист">
+        <label>квалификация:</label>
+        <input type="text" placeholder="6">
+        <label>форма:</label>
+        <input type="text" placeholder="заочная">
+        <label>диплом:</label>
+        <input type="text" placeholder="№1233456452">
+        <label>дата начала:</label>
+        <input type="text" placeholder="01.09.2010">
+        <label>дата завершения:</label>
+        <input type="text" placeholder="01.07.2014">
+      </div>
     </div>
+  </main>
 </div>
 </template>
 
@@ -88,16 +133,18 @@ export default {
   components: {
     Header,
   },
+  // props: ["employees"],
 };
 </script>
 
 <style scoped>
-#employee-page{
-  padding-bottom: 10px;
-}
-
-#container-buttons{
+main{
   padding: 20px 20px;
+}
+main > :not(:last-child){
+  margin-bottom: 20px;
+}
+#container-buttons{
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -120,8 +167,6 @@ export default {
 }
 /* employee */
 #employee{
-  margin: 0px 20px;
-  margin-bottom: 20px;
   padding: 10px 10px;
   font-size: 30px;
   background-color: #f5f5f5;
@@ -141,12 +186,12 @@ export default {
 #employee-data{
   display: flex;
   align-items: flex-start;
-  justify-content: center;
-  padding: 0px 20px;
+  justify-content: flex-start;
+  flex-wrap: wrap;
 }
 #employee-data :not(:first-child),
 #employee-data :not(:last-child){
-  margin-right: 20px;
+  /* margin-right: 20px; */
 }
 .edata-item{
   padding: 10px 10px;
