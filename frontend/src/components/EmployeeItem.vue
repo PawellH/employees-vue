@@ -1,14 +1,14 @@
 <template>
-  <router-link id="employee" :to="link" tag="div">
+  <router-link id="employee" to="/" tag="div">
     <div id="employee__lineTop"></div>
     <div id="employee__main">
-      <div id="employee_img" :style="{'background-image': `url('${photo}')`}" ></div>
+      <div id="employee_img" :style="{'background-image': `url('')`}" ></div>
       <div id="employee_info">
         <span>#{{id}}</span>
         <span>{{lastname}}</span>
         <span>{{first_name}}</span>
         <span>{{middle_name}}</span>
-        <span>{{position}}</span>
+        <!-- <span>{{position}}</span> -->
       </div>
     </div>
     <div id="employee__lineBottom"></div>
@@ -22,9 +22,9 @@ export default {
     lastname: String,
     first_name: String,
     middle_name: String,
-    position: String,
-    photo: String,
-    link: String,
+    // position: String,
+    // photo: String,
+    // link: String,
   },
 };
 </script>

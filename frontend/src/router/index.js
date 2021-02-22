@@ -11,7 +11,7 @@ const routes = [
     component: Index,
   },
   {
-    path: "/epage",
+    path: "/epage/:id",
     component: EmployeePage,
   },
 ];

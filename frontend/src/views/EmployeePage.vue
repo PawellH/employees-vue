@@ -1,17 +1,13 @@
 <template>
-<div id="employee-page">
-  <Header/>
-  <main>
+<div id="employee-page" v-if="employee">
+  <div id="fixedPath">
+    <Header
+      :person="{ id: employee.id, lastname: employee.lastname, first_name: employee.first_name, middle_name: employee.middle_name}"
+    />
     <form id="container-buttons">
-    <button type="submit" id="saveBtn">Сохранить</button>
-    <button type="submit" id="deleteBtn">Удалить</button>
-  </form>
-  <div id="employee">
-    <span>№1</span>
-    <span>Гончаров</span>
-    <span>Павел</span>
-    <span>Владимирович</span>
-    <span>fullstack developer</span>
+      <button type="submit" id="saveBtn">Сохранить</button>
+      <button type="submit" id="deleteBtn">Удалить</button>
+    </form>
   </div>
   <div id="employee-data">
     <div id="employee-data__general" class="edata-item">
@@ -19,6 +15,10 @@
       <div id="employee-data__photo">
         <img src="/images/user1photo.png" alt="userphoto" id="emplyee-img">
         <button type="submit">Загрузить фото</button>
+      </div>
+      <div>
+        <label>№:</label>
+        <input type="text" placeholder="1">
       </div>
       <div>
         <label>Фамилия:</label>
@@ -122,35 +122,54 @@
         <input type="text" placeholder="01.07.2014">
       </div>
     </div>
-  </main>
 </div>
 </template>
 
 <script>
 import Header from "../components/Header.vue";
+import httpClient from "../helpers/httpClient";
 
 export default {
   components: {
     Header,
+  },
+  data() {
+    return {
+      employee: null,
+    };
+  },
+  async created() {
+    this.employee = await this.getEmployee();
+  },
+  methods: {
+    async getEmployee() {
+      const employeeId = this.$route.params.id;
+      const employeeResponse = await httpClient.get(`/employees?id=${employeeId}`);
+      return employeeResponse.status === 200 ? employeeResponse.data[0] : null;
+    },
   },
   // props: ["employees"],
 };
 </script>
 
 <style scoped>
-main{
-  padding: 20px 20px;
+#fixedPath{
+  position: fixed;
+  width: 100%;
+  z-index: 1;
 }
-main > :not(:last-child){
-  margin-bottom: 20px;
-}
+
 #container-buttons{
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: flex-start;
+  background-color: #ffffffbe;
 }
 #container-buttons button {
-  height: 36px;
+  height: 32px;
   border: solid 2px black;
   font-size: 16px;
   color: white;
@@ -160,7 +179,7 @@ main > :not(:last-child){
   margin-right: 20px;
 }
 #saveBtn{
-  background-color: #4f0e6d;
+  background-color: #0c6136;
 }
 #deleteBtn{
   background-color: #d31414;
@@ -188,10 +207,15 @@ main > :not(:last-child){
   align-items: flex-start;
   justify-content: flex-start;
   flex-wrap: wrap;
+  padding: 20px 20px;
+  padding-top: 100px;
+}
+#employee-data > :not(:last-child){
+  margin-bottom: 20px;
 }
 #employee-data :not(:first-child),
 #employee-data :not(:last-child){
-  /* margin-right: 20px; */
+  margin-right: 20px;
 }
 .edata-item{
   padding: 10px 10px;
@@ -204,12 +228,6 @@ main > :not(:last-child){
 }
 
 /*#employee-data__general */
-#employee-data__general{
-
-}
-.employee-data__photo{
-
-}
 #emplyee-img{
   height: 200px;
   width: 200px;
@@ -218,5 +236,20 @@ main > :not(:last-child){
   border: solid 1px #071f42;
   border-radius: 10px;
   background-color: rgb(70, 109, 180) ;
+}
+
+#employee-data select {
+  width: 100px;
+  height: 32px;
+  font-size: 16px;
+  padding-left: 5px;
+  border: 2px solid #143033;
+}
+#employee-data input{
+  width: 200px;
+  height: 26px;
+  font-size: 16px;
+  padding-left: 5px;
+  border: 2px solid #143033;
 }
 </style>

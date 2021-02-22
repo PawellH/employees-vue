@@ -15,17 +15,14 @@
       </button>
     </form>
   </div>
-  <div id="container-employees">
+  <div id="container-employees" v-if="employees">
     <EmployeeItem
-      v-for="employee in employees"
-      :key="employee.id"
-      :id="employee.id"
-      :lastname="employee.lastname"
-      :first_name="employee.first_name"
-      :middle_name="employee.middle_name"
-      :position="employee.position"
-      :photo="employee.photo"
-      :link="employee.link"
+      v-for="empl in employees"
+      :key="empl.id"
+      :id="empl.id"
+      :lastname="empl.lastname"
+      :first_name="empl.first_name"
+      :middle_name="empl.middle_name"
     />
   </div>
 </div>
@@ -34,201 +31,41 @@
 <script>
 import Header from "../components/Header.vue";
 import EmployeeItem from "../components/EmployeeItem.vue";
+import httpClient from "../helpers/httpClient";
 
 export default {
+  async created() {
+    this.employees = await this.getEmployees();
+  },
+  methods: {
+    async getEmployees() {
+      const employeeResponse = await httpClient.get("/employees");
+      return employeeResponse.status === 200 ? employeeResponse.data : null;
+    },
+  },
   data() {
     return {
-      employees: [
-        {
-          id: 1,
-          lastname: "Гончаров",
-          first_name: "Павел",
-          middle_name: "Владимирович",
-          position: "frontend developer",
-          photo: "/images/user1photo.png",
-          link: "/epage",
-        },
-        {
-          id: 2,
-          lastname: "Высоцкий",
-          first_name: "Илья",
-          middle_name: "Михайлович",
-          position: "backend developer",
-          photo: "/images/employee2Photo.png",
-          link: "/epage",
-        },
-        {
-          id: 2,
-          lastname: "Высоцкий",
-          first_name: "Илья",
-          middle_name: "Михайлович",
-          position: "backend developer",
-          photo: "/images/employee2Photo.png",
-          link: "/epage",
-        },
-        {
-          id: 2,
-          lastname: "Высоцкий",
-          first_name: "Илья",
-          middle_name: "Михайлович",
-          position: "backend developer",
-          photo: "/images/employee2Photo.png",
-          link: "/epage",
-        },
-        {
-          id: 2,
-          lastname: "Высоцкий",
-          first_name: "Илья",
-          middle_name: "Михайлович",
-          position: "backend developer",
-          photo: "/images/employee2Photo.png",
-          link: "/epage",
-        },
-        {
-          id: 2,
-          lastname: "Высоцкий",
-          first_name: "Илья",
-          middle_name: "Михайлович",
-          position: "backend developer",
-          photo: "/images/employee2Photo.png",
-          link: "/epage",
-        },
-        {
-          id: 2,
-          lastname: "Высоцкий",
-          first_name: "Илья",
-          middle_name: "Михайлович",
-          position: "backend developer",
-          photo: "/images/employee2Photo.png",
-          link: "/epage",
-        },
-        {
-          id: 2,
-          lastname: "Высоцкий",
-          first_name: "Илья",
-          middle_name: "Михайлович",
-          position: "backend developer",
-          photo: "/images/employee2Photo.png",
-          link: "/epage",
-        },
-        {
-          id: 2,
-          lastname: "Высоцкий",
-          first_name: "Илья",
-          middle_name: "Михайлович",
-          position: "backend developer",
-          photo: "/images/employee2Photo.png",
-          link: "/epage",
-        },
-        {
-          id: 2,
-          lastname: "Высоцкий",
-          first_name: "Илья",
-          middle_name: "Михайлович",
-          position: "backend developer",
-          photo: "/images/employee2Photo.png",
-          link: "/epage",
-        },
-        {
-          id: 2,
-          lastname: "Высоцкий",
-          first_name: "Илья",
-          middle_name: "Михайлович",
-          position: "backend developer",
-          photo: "/images/employee2Photo.png",
-          link: "/epage",
-        },
-        {
-          id: 2,
-          lastname: "Высоцкий",
-          first_name: "Илья",
-          middle_name: "Михайлович",
-          position: "backend developer",
-          photo: "/images/employee2Photo.png",
-          link: "/epage",
-        },
-        {
-          id: 2,
-          lastname: "Высоцкий",
-          first_name: "Илья",
-          middle_name: "Михайлович",
-          position: "backend developer",
-          photo: "/images/employee2Photo.png",
-          link: "/epage",
-        },
-        {
-          id: 2,
-          lastname: "Высоцкий",
-          first_name: "Илья",
-          middle_name: "Михайлович",
-          position: "backend developer",
-          photo: "/images/employee2Photo.png",
-          link: "/epage",
-        },
-        {
-          id: 2,
-          lastname: "Высоцкий",
-          first_name: "Илья",
-          middle_name: "Михайлович",
-          position: "backend developer",
-          photo: "/images/employee2Photo.png",
-          link: "/epage",
-        },
-        {
-          id: 2,
-          lastname: "Высоцкий",
-          first_name: "Илья",
-          middle_name: "Михайлович",
-          position: "backend developer",
-          photo: "/images/employee2Photo.png",
-          link: "/epage",
-        },
-        {
-          id: 2,
-          lastname: "Высоцкий",
-          first_name: "Илья",
-          middle_name: "Михайлович",
-          position: "backend developer",
-          photo: "/images/employee2Photo.png",
-          link: "/epage",
-        },
-        {
-          id: 2,
-          lastname: "Высоцкий",
-          first_name: "Илья",
-          middle_name: "Михайлович",
-          position: "backend developer",
-          photo: "/images/employee2Photo.png",
-          link: "/epage",
-        },
-        {
-          id: 2,
-          lastname: "Высоцкий",
-          first_name: "Илья",
-          middle_name: "Михайлович",
-          position: "backend developer",
-          photo: "/images/employee2Photo.png",
-          link: "/epage",
-        },
-        {
-          id: 2,
-          lastname: "Высоцкий",
-          first_name: "Илья",
-          middle_name: "Михайлович",
-          position: "backend developer",
-          photo: "/images/employee2Photo.png",
-          link: "/epage",
-        },
-        {
-          id: 2,
-          lastname: "Высоцкий",
-          first_name: "Илья",
-          middle_name: "Михайлович",
-          position: "backend developer",
-          photo: "/images/employee2Photo.png",
-          link: "/epage",
-        },
-      ],
+      employees: null,
+      // employees: [
+      //   {
+      //     id: 1,
+      //     lastname: "Гончаров",
+      //     first_name: "Павел",
+      //     middle_name: "Владимирович",
+      //     position: "frontend developer",
+      //     photo: "/images/user1photo.png",
+      //     link: "/epage",
+      //   },
+      //   {
+      //     id: 2,
+      //     lastname: "Высоцкий",
+      //     first_name: "Илья",
+      //     middle_name: "Михайлович",
+      //     position: "backend developer",
+      //     photo: "/images/employee2Photo.png",
+      //     link: "/epage",
+      //   },
+      // ],
     };
   },
   components: {

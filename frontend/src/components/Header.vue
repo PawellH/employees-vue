@@ -1,12 +1,25 @@
 <template>
 <div id="header">
     <router-link to="/" id="icoDiv">
-      <img src="images/ico.png" alt="ico" id="icoImg">
+      <img src="/images/ico.png" alt="ico" id="icoImg">
       <h1>Employees</h1>
     </router-link>
+    <span v-if="person" id="employee">/ #{{person.id}} {{person.lastname}} {{getInitials(person.first_name, person.middle_name)}}</span>
 </div>
 </template>
-
+<script>
+export default {
+  props: {
+    person: Object,
+  },
+  methods: {
+    getInitials(firstName, middleName) {
+      const str = `${firstName.substr(0, 1)}.${middleName.substr(0, 1)}.`;
+      return str;
+    },
+  },
+};
+</script>
 <style scoped>
 #header{
   background-color: rgb(8, 8, 58);
@@ -34,5 +47,10 @@ h1{
 a{
   text-decoration: none;
   color: white;
+}
+#employee{
+  padding-left: 30px;
+  font-size: 16px;
+  color: rgb(154, 212, 247);
 }
 </style>
