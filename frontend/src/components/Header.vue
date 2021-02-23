@@ -21,6 +21,9 @@ export default {
 };
 </script>
 <style scoped>
+* ::after ::before {
+  box-sizing: border-box;
+}
 #header{
   background-color: rgb(8, 8, 58);
   color: white;
