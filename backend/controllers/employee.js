@@ -31,7 +31,7 @@ function parseQueryFieldsString(queryFieldsString) {
 
 function parseQueryIncludeString(includeQueryString) {
   const fieldsObject = {
-    position: "position.name"
+    position: "position.name as position"
   };
   const joinsObject = {
     position: "inner join position on employee.id_position = position.id"
