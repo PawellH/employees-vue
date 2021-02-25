@@ -4,15 +4,17 @@
     <Header/>
     <form id="container-buttons">
       <router-link id="addEmployeeBtn" to="/epage" tag="button">Добавить</router-link>
-      <select>
+      <div>
+        <select>
         <option value="№">№</option>
         <option value="Фамилия">Фамилия</option>
         <option value="Должность">Должность</option>
-      </select>
-      <input type="text" placeholder="Поиск...">
-      <button id="searchEmployeeBtn">
-        <img src="/images/loupe.png" alt="loupe" id="loupe_img">
-      </button>
+        </select>
+        <input type="text" placeholder="Поиск...">
+        <button id="searchEmployeeBtn">
+          <img src="/images/loupe.png" alt="loupe" id="loupe_img">
+        </button>
+      </div>
     </form>
   </div>
   <div id="container-employees" v-if="employees">
@@ -74,6 +76,9 @@ export default {
 };
 </script>
 <style scoped>
+*, ::after, ::before {
+  box-sizing: border-box;
+}
 #fixedPath{
   position: fixed;
   width: 100%;
@@ -88,12 +93,11 @@ export default {
 }
 
 #container-buttons{
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 20px;
+  padding: 10px 20px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
+  flex-wrap: wrap;
   background-color: #ffffffbe;
 }
 #container-buttons select {
@@ -103,14 +107,18 @@ export default {
   padding-left: 5px;
   border: 2px solid #143033;
   border-right: none;
+  position: relative;
+  bottom: 2px;
 }
 #container-buttons input{
   width: 200px;
-  height: 26px;
+  height: 32px;
   font-size: 16px;
   padding-left: 5px;
   border: 2px solid #143033;
   border-right: none;
+  position: relative;
+  bottom: 2.5px;
 }
 #container-buttons button {
   height: 32px;
@@ -127,10 +135,31 @@ export default {
   background-color: #126c7c;
   padding: 0px 10px;
 }
-#loupe_img{
+#loupe_img {
   width: 20px;
   height: 20px;
   position: relative;
   top:2px;
+}
+
+/* media queries */
+@media (max-width:491px){
+  #container-buttons{
+    justify-content: center;
+  }
+  #container-buttons > div:last-child{
+    padding-top: 5px;
+  }
+  #container-employees{
+    padding-top: 130px;
+  }
+}
+@media (max-width:384px){
+  #container-buttons{
+    padding: 10px 5px;
+  }
+  #container-buttons input{
+    width: 150px;
+  }
 }
 </style>
