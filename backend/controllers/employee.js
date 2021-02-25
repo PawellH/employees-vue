@@ -56,19 +56,15 @@ function parseQueryIncludeString(includeQueryString) {
 exports.get = asyncHandler(async function(req, res) {
   const { id, fields: queryFieldsString = "", include: includeQueryString = "" } = req.query;
   let rows = null;
-  if (id) {
-    const ids = id.split(",");
-    const parsedQueryFieldsString = parseQueryFieldsString(queryFieldsString);
-    const parsedIncludeQueryString = parseQueryIncludeString(includeQueryString);
-    const fieldsToSelect = [...parsedQueryFieldsString, ...parsedIncludeQueryString.fields]
-    rows = (await connection.query(`
-    SELECT ${fieldsToSelect.length > 0 ? fieldsToSelect : "*"} FROM employee
-    ${parsedIncludeQueryString.joins.join("\n")}
-    WHERE employee.id in (:ids);
-    `, { ids }))[0];
-  } else {
-    rows = (await connection.query("SELECT * FROM employee"))[0];
-  }
+  const ids = id?.split(",");
+  const parsedQueryFieldsString = parseQueryFieldsString(queryFieldsString);
+  const parsedIncludeQueryString = parseQueryIncludeString(includeQueryString);
+  const fieldsToSelect = [...parsedQueryFieldsString, ...parsedIncludeQueryString.fields]
+  rows = (await connection.query(`
+  SELECT ${fieldsToSelect.length > 0 ? fieldsToSelect : "*"} FROM employee
+  ${parsedIncludeQueryString.joins.join("\n")}
+  ${id ? "WHERE employee.id in (:ids);": ""}
+  `, { ids }))[0];
   if (!rows || rows.length < 1) {
     throw createError(400, "This user doesn't exist");
   }
