@@ -20,11 +20,13 @@
   <div id="container-employees" v-if="employees">
     <EmployeeItem
       v-for="empl in employees"
-      :key="empl.id"
-      :id="empl.id"
+      :key="empl.employee_id"
+      :id="empl.employee_id"
       :lastname="empl.lastname"
       :first_name="empl.first_name"
       :middle_name="empl.middle_name"
+      :position="empl.position"
+      :photo="empl.photo"
     />
   </div>
 </div>
@@ -41,7 +43,7 @@ export default {
   },
   methods: {
     async getEmployees() {
-      const employeeResponse = await httpClient.get("/employees");
+      const employeeResponse = await httpClient.get("/employees?include=position");
       return employeeResponse.status === 200 ? employeeResponse.data : null;
     },
   },

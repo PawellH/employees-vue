@@ -4,7 +4,7 @@ const connection = require("../boot/dbConnection");
 
 function parseQueryFieldsString(queryFieldsString) {
   const fieldsObject = {
-    id: "employee.id",
+    id: "employee.employee_id",
     lastname: "employee.lastname",
     first_name: "employee.first_name",
     middle_name: "employee.middle_name",
@@ -15,6 +15,7 @@ function parseQueryFieldsString(queryFieldsString) {
     date_dismissal: "employee.date_dismissal",
     address: "employee.address",
     place_birth: "employee.place_birth",
+    photo: "employee.photo",
   }
   const queryFields = queryFieldsString.split(",").map(queryField => {
     return queryField.trim();
@@ -31,10 +32,10 @@ function parseQueryFieldsString(queryFieldsString) {
 
 function parseQueryIncludeString(includeQueryString) {
   const fieldsObject = {
-    position: "position.name as position"
+    position: "position.position_name as position"
   };
   const joinsObject = {
-    position: "inner join position on employee.id_position = position.id"
+    position: "inner join position on employee.id_position = position.position_id"
   };
   const fieldsToInclude = includeQueryString.split(",").map(fieldToInclude => {
     return fieldToInclude.trim();
@@ -62,7 +63,7 @@ exports.get = asyncHandler(async function(req, res) {
   rows = (await connection.query(`
   SELECT ${parsedQueryFieldsString.length > 0 ? parsedQueryFieldsString : "*"}, ${parsedIncludeQueryString.fields.join(",")} FROM employee
   ${parsedIncludeQueryString.joins.join("\n")}
-  ${id ? "WHERE employee.id in (:ids);": ""}
+  ${id ? "WHERE employee.employee_id in (:ids);": ""}
   `, { ids }))[0];
   if (!rows || rows.length < 1) {
     throw createError(400, "This user doesn't exist");

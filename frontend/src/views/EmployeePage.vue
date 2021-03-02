@@ -69,48 +69,70 @@
     <div class="edata-items" id="edata-items2">
       <div class="edata-item">
         <div class="edata-item__headInfo">
-          <span>Cотрудник</span>
+          <span>Сотрудник</span>
         </div>
         <div class="edata-item__content">
           <div class="edata-item__inputs">
-            <label>должность</label>
-            <input type="text" placeholder="fullstack developer">
-            <label>отдел</label>
-            <input type="text" placeholder="IT">
-            <label>дата присоединения</label>
-            <input type="text" placeholder="04.05.2014">
-            <label>дата увольнения</label>
-            <input type="text" placeholder="...">
+            <div>
+              <label>должность</label>
+              <input type="text" placeholder="fullstack developer">
+            </div>
+            <div>
+              <label>отдел</label>
+              <input type="text" placeholder="IT">
+            </div>
+            <div>
+              <label>дата присоединения</label>
+              <input type="text" placeholder="04.05.2014">
+            </div>
+            <div>
+              <label>дата увольнения</label>
+              <input type="text" placeholder="...">
+            </div>
           </div>
         </div>
       </div>
-      <div class="edata-item">
+      <div class="edata-item" id="edata-item3">
         <div class="edata-item__headInfo">
           <span>Контакты</span>
         </div>
         <div class="edata-item__content">
           <div class="edata-item__inputs">
-            <label>телефон:</label>
-            <input type="text" placeholder="+375291111111">
-            <label>email:</label>
-            <input type="text" placeholder="pavel@gmail.com">
-            <label>адрес:</label>
-            <input type="text" placeholder="г. Минск, ул. Громова 89, кв. 12">
+            <div>
+              <label>телефон</label>
+              <input type="text" placeholder="+375291111111">
+            </div>
+            <div>
+              <label>email</label>
+              <input type="text" placeholder="pavel@gmail.com">
+            </div>
+            <div>
+              <label>адрес</label>
+              <input type="text" placeholder="г. Минск, ул. Громова 89, кв. 12">
+            </div>
           </div>
         </div>
       </div>
-      <div class="edata-item">
+      <div class="edata-item" id="edata-item4">
         <div class="edata-item__headInfo">
+          <div class="arrow arrow-left"></div>
           <span>Проект</span>
+          <div class="arrow arrow-right"></div>
         </div>
         <div class="edata-item__content">
           <div class="edata-item__inputs">
-            <label>название:</label>
-            <input type="text" placeholder="plugnet">
-            <label>заказчик:</label>
-            <input type="text" placeholder="ecompani">
-            <label>работа:</label>
-            <input type="text" placeholder="frontend">
+            <div>
+              <label>название</label>
+              <input type="text" placeholder="plugnet">
+            </div>
+            <div>
+              <label>заказчик</label>
+              <input type="text" placeholder="ecompani">
+            </div>
+            <div>
+              <label>работа</label>
+              <input type="text" placeholder="frontend">
+            </div>
           </div>
         </div>
       </div>
@@ -118,48 +140,78 @@
     <div class="edata-items">
       <div class="edata-item">
         <div class="edata-item__headInfo">
+          <div class="arrow arrow-left"></div>
           <span>Опыт</span>
+          <div class="arrow arrow-right"></div>
         </div>
         <div class="edata-item__content">
           <div class="edata-item__inputs">
-            <label>имя компании</label>
-            <input type="text" placeholder="esoft">
-            <label>должность</label>
-            <input type="text" placeholder="full stack">
-            <label>дата присоединения</label>
-            <input type="text" placeholder="20.11.2012">
-            <label>дата увольнения</label>
-            <input type="text" placeholder="20.11.2013">
-            <label>причина увольнения</label>
-            <input type="text" placeholder="истечение конкракта">
+            <div>
+              <label>имя компании</label>
+              <input type="text" placeholder="esoft">
+            </div>
+            <div>
+              <label>должность</label>
+              <input type="text" placeholder="full stack">
+            </div>
+            <div>
+              <label>дата присоединения</label>
+              <input type="text" placeholder="20.11.2012">
+            </div>
+            <div>
+              <label>дата увольнения</label>
+              <input type="text" placeholder="20.11.2013">
+            </div>
+            <div>
+              <label>причина увольнения</label>
+              <input type="text" placeholder="истечение конкракта">
+            </div>
           </div>
         </div>
       </div>
-      <div class="edata-item">
+      <div class="edata-item"  id="edata-item6">
         <div class="edata-item__headInfo">
+          <div class="arrow arrow-left"></div>
           <span>Образование</span>
+          <div class="arrow arrow-right"></div>
         </div>
         <div class="edata-item__content">
           <div class="edata-item__inputs">
-            <label>вид:</label>
-            <input type="text" placeholder="высшее">
-            <label>учреждение:</label>
-            <input type="text" placeholder="БГУИР">
-            <label>специальность:</label>
-            <input type="text" placeholder="техник-программист">
-            <label>квалификация:</label>
-            <input type="text" placeholder="6">
-            <label>форма:</label>
-            <input type="text" placeholder="заочная">
-            <label>диплом:</label>
-            <input type="text" placeholder="№1233456452">
-            <label>дата начала:</label>
-            <input type="text" placeholder="01.09.2010">
-            <label>дата завершения:</label>
-            <input type="text" placeholder="01.07.2014">
+            <div>
+              <label>вид</label>
+              <input type="text" placeholder="высшее">
+            </div>
+            <div>
+              <label>учреждение</label>
+              <input type="text" placeholder="БГУИР">
+            </div>
+            <div>
+              <label>специальность</label>
+              <input type="text" placeholder="техник-программист">
+            </div>
+            <div>
+              <label>квалификация</label>
+              <input type="text" placeholder="6">
+            </div>
+            <div>
+              <label>форма</label>
+              <input type="text" placeholder="заочная">
+            </div>
+            <div>
+              <label>диплом</label>
+              <input type="text" placeholder="№1233456452">
+            </div>
+            <div>
+              <label>дата начала</label>
+              <input type="text" placeholder="01.09.2010">
+            </div>
+            <div>
+              <label>дата завершения</label>
+              <input type="text" placeholder="01.07.2014">
+            </div>
           </div>
         </div>
-    </div>
+      </div>
     </div>
   </div>
 </div>
@@ -189,7 +241,6 @@ export default {
       return employeeResponse.status === 200 ? employeeResponse.data[0] : null;
     },
   },
-  // props: ["employees"],
 };
 </script>
 
@@ -240,16 +291,25 @@ export default {
 }
 .edata-item{
   width: 420px;
-  margin: 20px 20px;
+  margin: 20px 40px;
+}
+#edata-container > div:first-child{
+  margin-left: 20px;
 }
 .edata-items{
-  margin: 20px 20px;
-}
-#edata-items2 > div:last-child > div:last-child{
-  padding-bottom: 54px;
+  margin: 20px 40px;
 }
 .edata-items > div{
   margin: 0px;
+}
+#edata-item3{
+  margin-top: 55px;
+}
+#edata-item4{
+  margin-top: 55.2px;
+}
+#edata-item6{
+  margin-top: 92px;
 }
 
 .edata-item__headInfo{
@@ -259,7 +319,24 @@ export default {
   text-align: center;
   color: white;
   background-color: #0e0e64;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+.arrow {
+  width: 10px;
+  height: 10px;
+  margin: 0px 10px;
+  border-top: 3px solid #6098cc;
+  border-right: 3px solid #6098cc;
+}
+.arrow-right {
+  transform: rotate(45deg);
+}
+.arrow-left {
+  transform: rotate(-135deg);
+}
+
 .edata-item__content{
   width: 100%;
   padding: 10px 15px;
@@ -277,18 +354,17 @@ export default {
   flex-direction: column;
 }
 #edata-item__photo > img{
-  height: 250px;
-  width: 300px;
+  height: 200px;
+  width: 200px;
   object-fit: cover;
   display: block;
   border: solid 1px #071f42;
   border-radius: 10px;
-  background-color: rgb(70, 109, 180) ;
 }
 #edata-item__photo > button {
   padding: 3px 0px;
-  margin-top: 6px;
-  width: 300px;
+  margin-top: 5px;
+  width: 200px;
   font-size: 14px;
   background-color: #1b7179;
   color: #f5f5f5;
@@ -311,12 +387,14 @@ export default {
 }
 .edata-item__inputs label {
   font-size: 14px;
+  position: relative;
+  top:3px;
 }
 .edata-item__inputs input,
 .edata-item__inputs select {
   width: 220px;
   margin-left: auto;
-  font-size: 12px;
+  font-size: 14px;
   border: 2px solid #143033;
 }
 </style>
