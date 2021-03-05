@@ -2,7 +2,7 @@
 <div id="employee-page" v-if="employee">
   <div id="fixedPath">
     <Header
-      :person="{ id: employee.id, lastname: employee.lastname, first_name: employee.first_name, middle_name: employee.middle_name}"
+      :person="{ id: employee.employee_id, lastname: employee.lastname, first_name: employee.first_name, middle_name: employee.middle_name}"
     />
     <form id="container-buttons">
       <button type="submit" id="saveBtn">Сохранить</button>
@@ -228,16 +228,21 @@ export default {
   data() {
     return {
       employee: null,
+      isNew: false,
     };
   },
   async created() {
-    const result = await this.getEmployee();
-    this.employee = result;
+    const employeeId = this.$route.params.id;
+    this.isNew = !employeeId;
+    if (!this.isNew) {
+      const result = await this.getEmployee(employeeId);
+      this.employee = result;
+    }
   },
   methods: {
-    async getEmployee() {
-      const employeeId = this.$route.params.id;
+    async getEmployee(employeeId) {
       const employeeResponse = await httpClient.get(`/employees?id=${employeeId}`);
+      debugger;
       return employeeResponse.status === 200 ? employeeResponse.data[0] : null;
     },
   },

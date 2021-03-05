@@ -1,5 +1,5 @@
 <template>
-  <router-link id="employee" to="/" tag="div">
+  <router-link id="employee" :to="`/epage/${id}`" tag="div">
     <div id="employee__lineTop"></div>
     <div id="employee__main">
       <div id="employee_img" :style="{'background-image': `url('${photo}')`}" ></div>
@@ -24,7 +24,6 @@ export default {
     middle_name: String,
     position: String,
     photo: String,
-    // link: String,
   },
 };
 </script>

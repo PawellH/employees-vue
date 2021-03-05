@@ -5,13 +5,13 @@
     <form id="container-buttons">
       <router-link id="addEmployeeBtn" to="/epage" tag="button">Добавить</router-link>
       <div>
-        <select>
-        <option value="№">№</option>
-        <option value="Фамилия">Фамилия</option>
-        <option value="Должность">Должность</option>
+        <select v-model="search.type">
+        <option value="employee_id">№</option>
+        <option value="lastname">Фамилия</option>
+        <option value="position_name">Должность</option>
         </select>
-        <input type="text" placeholder="Поиск...">
-        <button id="searchEmployeeBtn">
+        <input type="text" placeholder="Поиск..." v-model="search.value">
+        <button id="searchEmployeeBtn" @click.prevent="makeSearch()">
           <img src="/images/loupe.png" alt="loupe" id="loupe_img">
         </button>
       </div>
@@ -25,8 +25,9 @@
       :lastname="empl.lastname"
       :first_name="empl.first_name"
       :middle_name="empl.middle_name"
-      :position="empl.position"
+      :position="empl.position_name"
       :photo="empl.photo"
+      v-show="empl.shouldShow"
     />
   </div>
 </div>
@@ -44,32 +45,35 @@ export default {
   methods: {
     async getEmployees() {
       const employeeResponse = await httpClient.get("/employees?include=position");
-      return employeeResponse.status === 200 ? employeeResponse.data : null;
+      const employeesData = employeeResponse.status === 200 ? employeeResponse.data : [];
+      const employees = employeesData.map((employeeData) => {
+        return {
+          ...employeeData,
+          shouldShow: true,
+        };
+      });
+      return employees;
+    },
+    makeSearch() {
+      if (!this.search.type || !this.search.value) {
+        return;
+      }
+      const result2 = this.employees.map((employee) => {
+        const result = employee[this.search.type]?.toString()
+          .toLowerCase()
+          .startsWith(this.search.value.toLowerCase());
+        return {
+          ...employee,
+          shouldShow: result,
+        };
+      });
+      this.employees = result2;
     },
   },
   data() {
     return {
       employees: null,
-      // employees: [
-      //   {
-      //     id: 1,
-      //     lastname: "Гончаров",
-      //     first_name: "Павел",
-      //     middle_name: "Владимирович",
-      //     position: "frontend developer",
-      //     photo: "/images/user1photo.png",
-      //     link: "/epage",
-      //   },
-      //   {
-      //     id: 2,
-      //     lastname: "Высоцкий",
-      //     first_name: "Илья",
-      //     middle_name: "Михайлович",
-      //     position: "backend developer",
-      //     photo: "/images/employee2Photo.png",
-      //     link: "/epage",
-      //   },
-      // ],
+      search: { value: "", type: "employee_id" },
     };
   },
   components: {
