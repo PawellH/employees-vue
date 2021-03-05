@@ -60,9 +60,10 @@ exports.get = asyncHandler(async function(req, res) {
   const ids = id?.split(",");
   const parsedQueryFieldsString = parseQueryFieldsString(queryFieldsString);
   const parsedIncludeQueryString = parseQueryIncludeString(includeQueryString);
-  rows = (await connection.query(`
-  SELECT ${parsedQueryFieldsString.length > 0 ? parsedQueryFieldsString : "*"}${
-    parsedIncludeQueryString.fields.length > 0 ? parsedIncludeQueryString.fields.join(",") : ""
+  rows = (await connection.query(`SELECT ${parsedQueryFieldsString.length > 0 ? parsedQueryFieldsString : "*"} ${
+    parsedIncludeQueryString.fields.length > 0 && parsedQueryFieldsString.length > 0
+      ? parsedIncludeQueryString.fields.join(",")
+      : ""
   } FROM employee
   ${parsedIncludeQueryString.joins.join("\n")}
   ${id ? "WHERE employee.employee_id in (:ids);": ""}
