@@ -56,4 +56,16 @@ a{
   font-size: 16px;
   color: rgb(154, 212, 247);
 }
+@media (max-width: 340px) {
+  #header{
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  #employee{
+    padding-left: 20px;
+    position: relative;
+    bottom: 3px;
+  }
+}
 </style>

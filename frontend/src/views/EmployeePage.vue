@@ -1,12 +1,18 @@
 <template>
-<div id="employee-page" v-if="employee">
+<div id="employee-page" v-if="employee || isNew">
   <div id="fixedPath">
     <Header
-      :person="{ id: employee.employee_id, lastname: employee.lastname, first_name: employee.first_name, middle_name: employee.middle_name}"
+      :person="{
+        id: employee ? employee.employee_id : '',
+        lastname: employee ? employee.lastname : '',
+        first_name: employee ? employee.first_name : '',
+        middle_name: employee ? employee.middle_name : '',
+      }"
     />
     <form id="container-buttons">
-      <button type="submit" id="saveBtn">Сохранить</button>
-      <button type="submit" id="deleteBtn">Удалить</button>
+      <button type="submit" id="saveBtn" v-if="!isNew">Сохранить</button>
+      <button type="submit" id="deleteBtn" v-if="!isNew">Удалить</button>
+      <button type="submit" id="addBtn" v-if="isNew">Добавить</button>
     </form>
   </div>
   <div id="edata-container">
@@ -16,25 +22,26 @@
       </div>
       <div class="edata-item__content">
         <div id="edata-item__photo">
-          <img src="/images/user1photo.png" alt="ephoto">
-          <button type="submit">Загрузить фото</button>
+          <img :src="employee ? employee.photo : ''" alt="ephoto">
+          <input type="file" id="input_file">
+          <label for="input_file">Загрузить фото</label>
         </div>
         <div class="edata-item__inputs">
           <div>
             <label>№</label>
-            <input type="text" placeholder="1">
+            <input type="text" placeholder="1" :value="employee ? employee.employee_id : ''">
           </div>
           <div>
             <label>фамилия</label>
-            <input type="text" placeholder="Иванов">
+            <input type="text" placeholder="Иванов" :value="employee ? employee.lastname : ''">
           </div>
           <div>
             <label>имя</label>
-            <input type="text" placeholder="Иван">
+            <input type="text" placeholder="Иван" :value="employee ? employee.first_name : ''">
           </div>
           <div>
             <label>отчество</label>
-            <input type="text" placeholder="Иванович">
+            <input type="text" placeholder="Иванович" :value="employee ? employee.middle_name : ''">
           </div>
           <div>
             <label>пол</label>
@@ -49,7 +56,7 @@
           </div>
           <div>
             <label>дата рождения</label>
-            <input type="text" placeholder="26.06.2001">
+            <input type="text" placeholder="26.06.2001" :value="employee ? employee.date_birth : ''">
           </div>
           <div>
             <label>национальность</label>
@@ -57,7 +64,7 @@
           </div>
           <div>
             <label>место рождения</label>
-            <input type="text" placeholder="Минск">
+            <input type="text" placeholder="Минск" :value="employee ? employee.place_birth : ''">
           </div>
           <div>
             <label>семейное положение</label>
@@ -100,15 +107,15 @@
           <div class="edata-item__inputs">
             <div>
               <label>телефон</label>
-              <input type="text" placeholder="+375291111111">
+              <input type="text" placeholder="+375291111111" :value="employee ? employee.phone : ''">
             </div>
             <div>
               <label>email</label>
-              <input type="text" placeholder="pavel@gmail.com">
+              <input type="text" placeholder="pavel@gmail.com" :value="employee ? employee.email : ''">
             </div>
             <div>
               <label>адрес</label>
-              <input type="text" placeholder="г. Минск, ул. Громова 89, кв. 12">
+              <input type="text" placeholder="г. Минск, ул. Громова 89, кв. 12" :value="employee ? employee.address : ''">
             </div>
           </div>
         </div>
@@ -156,11 +163,11 @@
             </div>
             <div>
               <label>дата присоединения</label>
-              <input type="text" placeholder="20.11.2012">
+              <input type="text" placeholder="20.11.2012" :value="employee ? employee.date_receipt : ''">
             </div>
             <div>
               <label>дата увольнения</label>
-              <input type="text" placeholder="20.11.2013">
+              <input type="text" placeholder="20.11.2013" :value="employee ? employee.date_dismissal : ''">
             </div>
             <div>
               <label>причина увольнения</label>
@@ -233,16 +240,17 @@ export default {
   },
   async created() {
     const employeeId = this.$route.params.id;
-    this.isNew = !employeeId;
+    this.isNew = employeeId === "new";
     if (!this.isNew) {
       const result = await this.getEmployee(employeeId);
       this.employee = result;
+    } else {
+      // this.employee = {};
     }
   },
   methods: {
     async getEmployee(employeeId) {
       const employeeResponse = await httpClient.get(`/employees?id=${employeeId}`);
-      debugger;
       return employeeResponse.status === 200 ? employeeResponse.data[0] : null;
     },
   },
@@ -256,6 +264,7 @@ export default {
 
 #fixedPath{
   position: fixed;
+  top: 0px;
   width: 100%;
   z-index: 1;
 }
@@ -279,7 +288,7 @@ export default {
 #container-buttons :not(:last-child) {
   margin-right: 20px;
 }
-#saveBtn{
+#saveBtn, #addBtn{
   background-color: #0c6136;
 }
 #deleteBtn{
@@ -288,7 +297,7 @@ export default {
 
 /* edata-item */
 #edata-container{
-  padding-top: 80px;
+  padding-top: 100px;
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -297,12 +306,14 @@ export default {
 .edata-item{
   width: 420px;
   margin: 20px 40px;
+  margin-top: 0px;
 }
 #edata-container > div:first-child{
   margin-left: 20px;
 }
 .edata-items{
   margin: 20px 40px;
+  margin-top: 0px;
 }
 .edata-items > div{
   margin: 0px;
@@ -366,7 +377,7 @@ export default {
   border: solid 1px #071f42;
   border-radius: 10px;
 }
-#edata-item__photo > button {
+#edata-item__photo > input {
   padding: 3px 0px;
   margin-top: 5px;
   width: 200px;
@@ -401,5 +412,132 @@ export default {
   margin-left: auto;
   font-size: 14px;
   border: 2px solid #143033;
+}
+/* media queries */
+@media (max-width:1496px){
+  .edata-item, .edata-items{
+    margin: 20px 20px;
+    margin-top: 0px;
+  }
+}
+@media (max-width:1396px){
+  .edata-item, .edata-items{
+    margin: 15px 15px;
+    margin-top: 0px;
+  }
+}
+@media (max-width:1376px){
+  .edata-item, .edata-items{
+    margin: 10px 10px;
+    margin-top: 0px;
+  }
+}
+@media (max-width:1346px){
+  .edata-item, .edata-items{
+    margin: 5px 5px;
+    margin-top: 0px;
+  }
+}
+@media (max-width:1321px){
+  #edata-container {
+    justify-content: center;
+    align-items: center;
+  }
+  .edata-item, .edata-items{
+    margin: 5px 50px;
+    margin-top: 0px;
+  }
+  #edata-container > :last-child{
+    margin-left: 20px;
+    margin-top: 20px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  #edata-item6{
+    margin-top: 0px;
+    margin-left: 100px;
+  }
+}
+@media (max-width: 1010px){
+  .edata-item, .edata-items{
+    margin: 5px 20px;
+  }
+  #edata-item6{
+    margin-left: 40px;
+  }
+}
+@media (max-width: 921px){
+  .edata-item__inputs > div{
+    flex-direction: column;
+  }
+  .edata-item__inputs label {
+    position: relative;
+    top: 0px;
+    left: 3px;
+  }
+  .edata-item__inputs input,
+  .edata-item__inputs select {
+    margin: 0 auto;
+  }
+  .edata-item{
+    width: 260px;
+  }
+}
+@media (max-width: 601px){
+  #edata-container {
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .edata-item{
+    width: 420px;
+  }
+  .edata-item__inputs > div{
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .edata-item__inputs label {
+    position: relative;
+    top: 3px;
+    left: 0px;
+  }
+  .edata-item__inputs input,
+  .edata-item__inputs select {
+    margin: 0;
+    margin-left: auto;
+  }
+  .edata-item, .edata-items{
+    margin: 0px 20px;
+    margin-top: 10px;
+  }
+  #edata-container> :last-child {
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+  }
+  #edata-item6{
+    margin-left: 0px;
+  }
+  #edata-item3, #edata-item4, #edata-item6, #edata-container{
+    margin-top: 10px;
+  }
+}
+@media (max-width: 460px) {
+  .edata-item__inputs > div{
+    flex-direction: column;
+  }
+  .edata-item__inputs label {
+    position: relative;
+    top: 0px;
+    left: 3px;
+  }
+  .edata-item__inputs input,
+  .edata-item__inputs select {
+    margin: 0 auto;
+  }
+  .edata-item{
+    width: 260px;
+  }
 }
 </style>

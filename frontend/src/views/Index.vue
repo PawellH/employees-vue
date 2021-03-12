@@ -3,7 +3,7 @@
   <div id="fixedPath">
     <Header/>
     <form id="container-buttons">
-      <router-link id="addEmployeeBtn" to="/epage" tag="button">Добавить</router-link>
+      <router-link id="addEmployeeBtn" to="/epage/new" tag="button">Добавить</router-link>
       <div>
         <select v-model="search.type">
         <option value="employee_id">№</option>
