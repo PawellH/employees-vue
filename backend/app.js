@@ -1,4 +1,5 @@
 const express = require("express");
+const fileUpload = require("express-fileupload");
 const cors = require("cors");
 const createError = require("http-errors");
 require("dotenv").config();
@@ -11,7 +12,8 @@ const {
   PORT,
 } = process.env;
 
-// Parse JSON bodies (as sent by API clients)
+app.use(express.static("storage"));
+app.use(fileUpload());
 app.use(express.json());
 app.use(cors({
   origin: [
