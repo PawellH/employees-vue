@@ -107,14 +107,12 @@ export default {
   background-color: #ffffffbe;
 }
 #container-buttons select {
-  width: 100px;
+  width: 110px;
   height: 32px;
   font-size: 16px;
   padding-left: 5px;
   border: 2px solid #143033;
   border-right: none;
-  position: relative;
-  bottom: 2px;
 }
 #container-buttons input{
   width: 200px;
@@ -123,8 +121,6 @@ export default {
   padding-left: 5px;
   border: 2px solid #143033;
   border-right: none;
-  position: relative;
-  bottom: 2.5px;
 }
 #container-buttons button {
   height: 32px;
@@ -132,14 +128,31 @@ export default {
   font-size: 16px;
   color: white;
   cursor: pointer;
+  position: relative;
+  top: 2.6px;
 }
 #addEmployeeBtn {
-  background-color: #1a8116;
+  background-color: #538116;
   margin-right: 20px;
+  outline: none;
 }
+#addEmployeeBtn:hover {
+  background-color: #739419;
+}
+#addEmployeeBtn:active {
+  background-color: rgb(201, 21, 21);
+}
+
 #searchEmployeeBtn {
   background-color: #126c7c;
   padding: 0px 10px;
+  outline: none;
+}
+#searchEmployeeBtn:hover {
+  background-color: #2a8ea0;
+}
+#searchEmployeeBtn:active {
+  background-color: #2152af;
 }
 #loupe_img {
   width: 20px;

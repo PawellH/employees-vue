@@ -284,6 +284,7 @@ export default {
   font-size: 16px;
   color: white;
   cursor: pointer;
+  outline: none;
 }
 #container-buttons :not(:last-child) {
   margin-right: 20px;
@@ -291,8 +292,20 @@ export default {
 #saveBtn, #addBtn{
   background-color: #0c6136;
 }
+#saveBtn:hover, #addBtn:hover {
+  background-color: #739419;
+}
+#saveBtn:active, #addBtn:active {
+  background-color: rgb(0, 88, 221);
+}
 #deleteBtn{
   background-color: #d31414;
+}
+#deleteBtn:hover{
+  background-color: #f74141;
+}
+#deleteBtn:active{
+  background-color: #852905;
 }
 
 /* edata-item */
@@ -346,6 +359,12 @@ export default {
   border-top: 3px solid #6098cc;
   border-right: 3px solid #6098cc;
 }
+.arrow:hover{
+  border-color: aquamarine;
+}
+.arrow:active{
+  border-color: lime;
+}
 .arrow-right {
   transform: rotate(45deg);
 }
@@ -378,6 +397,11 @@ export default {
   border-radius: 10px;
 }
 #edata-item__photo > input {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+}
+#edata-item__photo > label{
   padding: 3px 0px;
   margin-top: 5px;
   width: 200px;
@@ -386,6 +410,12 @@ export default {
   color: #f5f5f5;
   border: 2px solid #143033;
   border-radius: 5px;
+}
+#edata-item__photo > label:hover{
+  background-color: #1f8a94;
+}
+#edata-item__photo > label:active{
+  background-color: #074b52;
 }
 
 /* input */

@@ -37,6 +37,12 @@ export default {
   align-items: center;
   justify-content: flex-start;
 }
+#icoDiv:hover > h1{
+  color: springgreen;
+}
+#icoDiv:active > h1{
+  color: skyblue;
+}
 #icoImg{
   width: 24px;
   height: 24px;

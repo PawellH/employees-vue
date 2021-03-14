@@ -38,6 +38,17 @@ export default {
   align-items: center;
   flex-direction: column;
 }
+#employee:hover{
+  background-color: white;
+}
+#employee:hover > #employee__lineTop,
+#employee:hover > #employee__lineBottom{
+  background-color: slategray;
+}
+#employee:active > #employee__lineTop,
+#employee:active > #employee__lineBottom{
+  background-color:steelblue;
+}
 
 #employee__lineTop{
   background-color: #0e0e64;
