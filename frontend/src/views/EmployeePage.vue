@@ -1,6 +1,6 @@
 <template>
 <div id="employee-page" v-if="employee || isNew">
-  <div id="fixedPath">
+  <div class="fixedPath">
     <Header
       :person="{
         id: employee ? employee.employee_id : '',
@@ -9,13 +9,14 @@
         middle_name: employee ? employee.middle_name : '',
       }"
     />
-    <form id="container-buttons">
+  </div>
+  <form action="">
+    <div id="container-buttons" class="fixedPath">type="submit"
       <button type="submit" id="saveBtn" v-if="!isNew">Сохранить</button>
       <button type="submit" id="deleteBtn" v-if="!isNew">Удалить</button>
       <button type="submit" id="addBtn" v-if="isNew">Добавить</button>
-    </form>
-  </div>
-  <div id="edata-container">
+    </div>
+    <div id="edata-container">
     <div class="edata-item">
       <div class="edata-item__headInfo">
         <span>Общая информация</span>
@@ -221,6 +222,7 @@
       </div>
     </div>
   </div>
+  </form>  
 </div>
 </template>
 
@@ -262,7 +264,7 @@ export default {
   box-sizing: border-box;
 }
 
-#fixedPath{
+.fixedPath{
   position: fixed;
   top: 0px;
   width: 100%;
@@ -270,6 +272,7 @@ export default {
 }
 /* buttons */
 #container-buttons{
+  top:45px;
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 20px;

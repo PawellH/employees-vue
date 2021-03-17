@@ -25,6 +25,7 @@ export default {
   box-sizing: border-box;
 }
 #header{
+  height: 45px;
   background-color: rgb(8, 8, 58);
   color: white;
   display: flex;
