@@ -2,7 +2,7 @@
   <router-link id="employee" :to="`/epage/${id}`" tag="div">
     <div id="employee__lineTop"></div>
     <div id="employee__main">
-      <div id="employee_img" :style="{'background-image': `url('${photo}')`}" ></div>
+      <div id="employee_img" :style="{'background-image': `url('${apiUrl}/ephoto-${id}')`}" ></div>
       <div id="employee_info">
         <span>#{{id}}</span>
         <span>{{lastname}}</span>
@@ -23,7 +23,11 @@ export default {
     first_name: String,
     middle_name: String,
     position: String,
-    photo: String,
+  },
+  computed: {
+    apiUrl() {
+      return process.env.VUE_APP_API_URL;
+    },
   },
 };
 </script>

@@ -10,7 +10,7 @@ exports.get = asyncHandler(async function(req, res) {
   if (includeQueryString === "all") {
     rows = await employeeService.getFullInformation(ids);
   } else {
-    rows = employeeService.getInformation(ids, queryFieldsString, includeQueryString);
+    rows = await employeeService.getInformation(ids, queryFieldsString, includeQueryString);
   }
   if (!rows || rows.length < 1) {
     throw createError(400, "This user doesn't exist");
@@ -20,7 +20,7 @@ exports.get = asyncHandler(async function(req, res) {
 });
 
 exports.create = asyncHandler(async function(req, res) {
-
+  console.log(req, res);
 });
 
 exports.update = asyncHandler(async function(req, res) {

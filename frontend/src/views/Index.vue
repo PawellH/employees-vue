@@ -26,7 +26,6 @@
       :first_name="empl.first_name"
       :middle_name="empl.middle_name"
       :position="empl.position_name"
-      :photo="empl.photo"
       v-show="empl.shouldShow"
     />
   </div>
