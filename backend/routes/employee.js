@@ -5,7 +5,9 @@ const router = express.Router();
 
 router.get("", employeeController.get);
 router.post("", employeeController.create);
-router.post("/:id/photo", employeeController.photo);
+router.put("/:id", employeeController.update)
 router.delete("/:id", employeeController.delete);
+
+router.post("/:id/photo", employeeController.photo);
 
 module.exports = router;

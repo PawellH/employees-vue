@@ -3,7 +3,7 @@ const asyncHandler = require("express-async-handler");
 const path = require("path");
 const employeeService = require("../services/employee");
 
-exports.get = asyncHandler(async function(req, res) {
+exports.get = asyncHandler(async function (req, res) {
   const { id, fields: queryFieldsString = "", include: includeQueryString = "" } = req.query;
   let rows = null;
   const ids = id?.split(",");
@@ -19,15 +19,15 @@ exports.get = asyncHandler(async function(req, res) {
   res.json(rows);
 });
 
-exports.create = asyncHandler(async function(req, res) {
+exports.create = asyncHandler(async function (req, res) {
   console.log(req, res);
 });
 
-exports.update = asyncHandler(async function(req, res) {
+exports.update = asyncHandler(async function (req, res) {
 
 });
 
-exports.photo = asyncHandler(async function(req, res) {
+exports.photo = asyncHandler(async function (req, res) {
   const { id } = req.params;
   const { photo } = req.files;
   if (!id) {
@@ -51,6 +51,6 @@ exports.photo = asyncHandler(async function(req, res) {
   }
 });
 
-exports.delete = asyncHandler(async function(req, res) {
-  
+exports.delete = asyncHandler(async function (req, res) {
+
 })

@@ -10,9 +10,9 @@
         }"
       />
     </div>
-    <form action="">
+    <form action="" ref="employeeRef">
       <div id="container-buttons" class="fixedPath">
-        <button type="submit" id="saveBtn" v-if="!isNew">Сохранить</button>
+        <button type="submit" id="saveBtn" v-if="!isNew" @click.prevent="handleSave()">Сохранить</button>
         <button type="submit" id="deleteBtn" v-if="!isNew">Удалить</button>
         <button type="submit" id="addBtn" v-if="isNew">Добавить</button>
       </div>
@@ -30,21 +30,23 @@
             <div class="edata-item__inputs">
               <div>
                 <label>№</label>
-                <input type="text" placeholder="1" :value="employee ? employee.employee_id : ''" />
+                <input type="text" name="employee_id" placeholder="1" :value="employee ? employee.employee_id : ''" />
               </div>
               <div>
                 <label>фамилия</label>
                 <input
                   type="text"
                   placeholder="Иванов"
+                  name="employee[lastname]"
                   :value="employee ? employee.lastname : ''"
-                />
+                >
               </div>
               <div>
                 <label>имя</label>
                 <input
                   type="text"
                   placeholder="Иван"
+                  name="employee[first_name]"
                   :value="employee ? employee.first_name : ''"
                 />
               </div>
@@ -53,43 +55,42 @@
                 <input
                   type="text"
                   placeholder="Иванович"
+                  name="employee[middle_name]"
                   :value="employee ? employee.middle_name : ''"
                 />
               </div>
               <div>
                 <label>пол</label>
-                <select>
+                <select name="employee[sex]">
                   <option value="мужской">мужской</option>
                   <option value="женский">женский</option>
                 </select>
-              </div>
-              <div>
-                <label>возраст</label>
-                <input type="text" placeholder="19" />
               </div>
               <div>
                 <label>дата рождения</label>
                 <input
                   type="text"
                   placeholder="26.06.2001"
-                  :value="employee ? employee.date_birth : ''"
+                  name="employee[date_birth]"
+                  :value="employee ? formatDate(new Date(`${employee.date_birth}`)) : ''"
                 />
               </div>
               <div>
                 <label>национальность</label>
-                <input type="text" placeholder="Беларусь" v-model="employee.nationality_name"/>
+                <input type="text" placeholder="Беларусь" name="nationality_name" :value="employee ? employee.nationality_name : ''"/>
               </div>
               <div>
                 <label>место рождения</label>
                 <input
                   type="text"
                   placeholder="Минск"
+                  name="employee[place_birth]"
                   :value="employee ? employee.place_birth : ''"
                 />
               </div>
               <div>
                 <label>семейное положение</label>
-                <input type="text" placeholder="не женат" v-model="employee.marital_status_name"/>
+                <input name="employee[martial_status_name]" type="text" placeholder="не женат" :value="employee ? employee.marital_status_name : ''"/>
               </div>
             </div>
           </div>
@@ -103,19 +104,19 @@
               <div class="edata-item__inputs">
                 <div>
                   <label>должность</label>
-                  <input type="text" placeholder="fullstack developer" v-model="employee.position_name"/>
+                  <input type="text" placeholder="fullstack developer" name="employee[position_name]" :value="employee ? employee.position_name : ''"/>
                 </div>
                 <div>
                   <label>отдел</label>
-                  <input type="text" placeholder="IT" v-model="employee.department_name"/>
+                  <input type="text" placeholder="IT" name="employee[department_name]" :value="employee ? employee.department_name : ''"/>
                 </div>
                 <div>
                   <label>дата присоединения</label>
-                  <input type="text" placeholder="04.05.2014" v-model="employee.date_receipt"/>
+                  <input type="text" placeholder="04.05.2014" name="employee[date_receipt]" :value="employee ? formatDate(new Date(employee.date_receipt)) : ''"/>
                 </div>
                 <div>
                   <label>дата увольнения</label>
-                  <input type="text" placeholder="..." v-model="employee.date_dismissal"/>
+                  <input type="text" placeholder="..." name="employee[date_dismissal]" :value="employee ? formatDate(new Date(employee.date_dismissal)) : ''"/>
                 </div>
               </div>
             </div>
@@ -131,6 +132,7 @@
                   <input
                     type="text"
                     placeholder="+375291111111"
+                    name="employee[phone]"
                     :value="employee ? employee.phone : ''"
                   />
                 </div>
@@ -139,6 +141,7 @@
                   <input
                     type="text"
                     placeholder="pavel@gmail.com"
+                    name="employee[email]"
                     :value="employee ? employee.email : ''"
                   />
                 </div>
@@ -147,6 +150,7 @@
                   <input
                     type="text"
                     placeholder="г. Минск, ул. Громова 89, кв. 12"
+                    name="employee[address]"
                     :value="employee ? employee.address : ''"
                   />
                 </div>
@@ -167,15 +171,15 @@
               >
                 <div>
                   <label>название</label>
-                  <input type="text" placeholder="plugnet" v-model="employeeProject.project_name" />
+                  <input type="text" name="project[project_name]" placeholder="plugnet" :value="employee ? employeeProject.project_name : ''" />
                 </div>
                 <div>
                   <label>заказчик</label>
-                  <input type="text" placeholder="ecompani" v-model="employeeProject.customer" />
+                  <input type="text" name="project[customer]" placeholder="ecompani" :value="employee ? employeeProject.customer : ''" />
                 </div>
                 <div>
                   <label>работа</label>
-                  <input type="text" placeholder="frontend" v-model="employeeProject.type_develop_name" />
+                  <input type="text" name="project[type_develop_name]" placeholder="frontend" :value="employee ? employeeProject.type_develop_name : ''" />
                 </div>
               </div>
             </div>
@@ -192,18 +196,19 @@
               <div class="edata-item__inputs" v-for="exWork in exWorks" :key="exWork.ex_work_id">
                 <div>
                   <label>имя компании</label>
-                  <input type="text" placeholder="esoft" v-model="exWork.organisation"/>
+                  <input type="text" placeholder="esoft" name="exwork[organisation]" :value="exWork ? exWork.organisation : ''"/>
                 </div>
                 <div>
                   <label>должность</label>
-                  <input type="text" placeholder="full stack" v-model="exWork.position"/>
+                  <input type="text" placeholder="full stack" name="exwork[position]" :value="exWork ? exWork.position : ''"/>
                 </div>
                 <div>
                   <label>дата присоединения</label>
                   <input
                     type="text"
                     placeholder="20.11.2012"
-                    v-model="exWork.data_receipt"
+                    name="exwork[date_receipt]"
+                    :value="exWork ? formatDate(new Date(exWork.data_receipt)) : ''"
                   />
                 </div>
                 <div>
@@ -211,12 +216,12 @@
                   <input
                     type="text"
                     placeholder="20.11.2013"
-                    v-model="exWork.data_dismissal"
+                    :value="exWork ? formatDate(new Date(exWork.data_dismissal)) : ''"
                   />
                 </div>
                 <div>
                   <label>причина увольнения</label>
-                  <input type="text" placeholder="истечение конкракта" v-model="exWork.reason_dismissal"/>
+                  <input name="exwork[reason_dismissal]" type="text" placeholder="истечение конкракта" :value="exWork ? exWork.reason_dismissal : ''"/>
                 </div>
               </div>
             </div>
@@ -231,35 +236,35 @@
               <div class="edata-item__inputs" v-for="education in educations" :key="education.education_id">
                 <div>
                   <label>вид</label>
-                  <input type="text" placeholder="высшее" v-model="education.view_education_name"/>
+                  <input name="education[view_education_name]" type="text" placeholder="высшее" :value="education ? education.view_education_name : ''"/>
                 </div>
                 <div>
                   <label>учреждение</label>
-                  <input type="text" placeholder="БГУИР" v-model="education.name_institution"/>
+                  <input name="education[name_institution]" type="text" placeholder="БГУИР" :value="education ? education.name_institution : ''"/>
                 </div>
                 <div>
                   <label>специальность</label>
-                  <input type="text" placeholder="техник-программист" v-model="education.specialty_name"/>
+                  <input name="education[specialty_name]" type="text" placeholder="техник-программист" :value="education ? education.specialty_name : ''"/>
                 </div>
                 <div>
                   <label>квалификация</label>
-                  <input type="text" placeholder="6" v-model="education.rank"/>
+                  <input name="education[rank]" type="text" placeholder="6" :value="education ? education.rank : ''"/>
                 </div>
                 <div>
                   <label>форма</label>
-                  <input type="text" placeholder="заочная" v-model="education.form_education_name"/>
+                  <input name="education[form_education_name]" type="text" placeholder="заочная" :value="education ? education.form_education_name : ''"/>
                 </div>
                 <div>
                   <label>диплом</label>
-                  <input type="text" placeholder="№1233456452" v-model="education.number_diploma"/>
+                  <input type="text" name="education[number_diploma]" placeholder="№1233456452" :value="education ? education.number_diploma : ''"/>
                 </div>
                 <div>
                   <label>дата начала</label>
-                  <input type="text" placeholder="01.09.2010" v-model="education.date_receipt"/>
+                  <input type="text" name="education[date_receipt]" placeholder="01.09.2010" :value="education ? formatDate(new Date(education.date_receipt)) : ''"/>
                 </div>
                 <div>
                   <label>дата завершения</label>
-                  <input type="text" placeholder="01.07.2014" v-model="education.date_expiration"/>
+                  <input type="text" name="education[date_expiration]" placeholder="01.07.2014" :value="education ? formatDate(new Date(education.date_expiration)) : ''"/>
                 </div>
               </div>
             </div>
@@ -281,10 +286,10 @@ export default {
   data() {
     return {
       employee: null,
-      employeesProjects: null,
+      employeesProjects: [{}],
       photo: "",
-      exWorks: null,
-      educations: null,
+      exWorks: [{}],
+      educations: [{}],
       isNew: false,
     };
   },
@@ -298,11 +303,8 @@ export default {
       this.exWorks = employeeInformation.exWorks;
       this.educations = employeeInformation.educations;
       if (!this.photo) {
-        debugger;
         this.photo = `${process.env.VUE_APP_API_URL}/ephoto-${this.employee.employee_id}`;
       }
-    } else {
-      // this.employee = {};
     }
   },
   methods: {
@@ -320,6 +322,20 @@ export default {
       //   },
       // });
       this.photo = URL.createObjectURL(newPhoto);
+    },
+    handleSave() {
+      const employeeFormData = new FormData(this.$refs.employeeRef);
+      httpClient.put(`/employees/${this.employee.employee_id}`, employeeFormData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+    },
+    formatDate(date) {
+      return new Intl.DateTimeFormat(
+        "en",
+        { year: "numeric", month: "2-digit", day: "2-digit" },
+      ).format(date);
     },
   },
 };

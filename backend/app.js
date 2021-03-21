@@ -15,7 +15,7 @@ const {
 app.use(express.static("storage"));
 app.use(fileUpload());
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }))
+app.use(express.urlencoded({ extended: true }))
 app.use(cors({
   origin: [
     FRONTEND_URL,
