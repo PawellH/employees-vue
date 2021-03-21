@@ -479,7 +479,7 @@ export default {
   flex-direction: column;
 }
 #edata-item__photo > img {
-  height: 200px;
+  height: 227.8px;
   width: 200px;
   object-fit: cover;
   display: block;
@@ -580,6 +580,7 @@ export default {
     justify-content: flex-start;
   }
   #edata-item6 {
+    width: 420px;
     margin-top: 0px;
     margin-left: 100px;
   }
@@ -609,6 +610,9 @@ export default {
   .edata-item {
     width: 260px;
   }
+  #edata-item6 {
+    width: 260px;
+  }
 }
 @media (max-width: 601px) {
   #edata-container {
@@ -616,6 +620,9 @@ export default {
     justify-content: flex-start;
   }
   .edata-item {
+    width: 420px;
+  }
+  #edata-item6 {
     width: 420px;
   }
   .edata-item__inputs > div {
@@ -667,6 +674,9 @@ export default {
     margin: 0 auto;
   }
   .edata-item {
+    width: 260px;
+  }
+  #edata-item6 {
     width: 260px;
   }
 }
