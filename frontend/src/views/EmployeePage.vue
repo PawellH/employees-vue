@@ -13,7 +13,7 @@
     <form action="" ref="employeeRef">
       <div id="container-buttons" class="fixedPath">
         <button type="submit" id="saveBtn" v-if="!isNew" @click.prevent="handleSave()">Сохранить</button>
-        <button type="submit" id="deleteBtn" v-if="!isNew">Удалить</button>
+        <button type="submit" id="deleteBtn" v-if="!isNew" @click.prevent="handleDelete()">Удалить</button>
         <button type="submit" id="addBtn" v-if="isNew">Добавить</button>
       </div>
       <div id="edata-container">
@@ -333,6 +333,10 @@ export default {
           "Content-Type": "multipart/form-data",
         },
       });
+    },
+    async handleDelete() {
+      await httpClient.delete(`/employees/${this.employee.employee_id}`);
+      this.$router.push("/");
     },
     formatDate(date) {
       return new Intl.DateTimeFormat(

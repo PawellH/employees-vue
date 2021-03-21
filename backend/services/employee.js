@@ -204,7 +204,7 @@ exports.update = async function (id, formDataFields) {
 }
 
 exports.delete = async function (id) {
-
+  await connection.query("delete from employee where employee.employee_id=:id ", { id });
 }
 
 exports.getFullInformation = async function (ids) {

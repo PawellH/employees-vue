@@ -53,5 +53,6 @@ exports.photo = asyncHandler(async function (req, res) {
 });
 
 exports.delete = asyncHandler(async function (req, res) {
-
+  await employeeService.delete(req.params.id);
+  res.json({ success: true });
 })
