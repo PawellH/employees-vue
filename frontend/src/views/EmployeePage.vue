@@ -23,8 +23,8 @@
           </div>
           <div class="edata-item__content">
             <div id="edata-item__photo">
-              <img :src="`${apiUrl}/ephoto-${employee.employee_id}`" alt="ephoto" />
-              <input type="file" id="input_file" />
+              <img :src="photo" alt="ephoto" />
+              <input type="file" id="input_file" ref="newPhotoRef" @change="handleNewPhotoUpload()"/>
               <label for="input_file">Загрузить фото</label>
             </div>
             <div class="edata-item__inputs">
@@ -221,7 +221,7 @@
               </div>
             </div>
           </div>
-          <div class="edata-item" id="edata-item6">
+          <div class="edataf-item" id="edata-item6">
             <div class="edata-item__headInfo">
               <div class="arrow arrow-left"></div>
               <span>Образование</span>
@@ -282,6 +282,7 @@ export default {
     return {
       employee: null,
       employeesProjects: null,
+      photo: "",
       exWorks: null,
       educations: null,
       isNew: false,
@@ -296,6 +297,10 @@ export default {
       this.employeesProjects = employeeInformation.employeesProjects;
       this.exWorks = employeeInformation.exWorks;
       this.educations = employeeInformation.educations;
+      if (!this.photo) {
+        debugger;
+        this.photo = `${process.env.VUE_APP_API_URL}/ephoto-${this.employee.employee_id}`;
+      }
     } else {
       // this.employee = {};
     }
@@ -305,10 +310,16 @@ export default {
       const employeeResponse = await httpClient.get(`/employees?id=${employeeId}&include=all`);
       return employeeResponse.status === 200 ? employeeResponse.data : null;
     },
-  },
-  computed: {
-    apiUrl() {
-      return process.env.VUE_APP_API_URL;
+    handleNewPhotoUpload() {
+      const newPhoto = this.$refs.newPhotoRef.files[0];
+      const newPhotoFormData = new FormData();
+      newPhotoFormData.append("photo", newPhoto);
+      // httpClient.post(`/employees/${this.employee.employee_id}/photo`, newPhotoFormData, {
+      //   headers: {
+      //     "Content-Type": "multipart/form-data",
+      //   },
+      // });
+      this.photo = URL.createObjectURL(newPhoto);
     },
   },
 };
