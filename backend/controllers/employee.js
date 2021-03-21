@@ -24,7 +24,8 @@ exports.create = asyncHandler(async function (req, res) {
 });
 
 exports.update = asyncHandler(async function (req, res) {
-
+  await employeeService.update(req.params.id, req.body);
+  res.json({ success: true });
 });
 
 exports.photo = asyncHandler(async function (req, res) {

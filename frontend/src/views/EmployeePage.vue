@@ -316,16 +316,19 @@ export default {
       const newPhoto = this.$refs.newPhotoRef.files[0];
       const newPhotoFormData = new FormData();
       newPhotoFormData.append("photo", newPhoto);
-      // httpClient.post(`/employees/${this.employee.employee_id}/photo`, newPhotoFormData, {
-      //   headers: {
-      //     "Content-Type": "multipart/form-data",
-      //   },
-      // });
       this.photo = URL.createObjectURL(newPhoto);
     },
     handleSave() {
       const employeeFormData = new FormData(this.$refs.employeeRef);
       httpClient.put(`/employees/${this.employee.employee_id}`, employeeFormData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      const newPhoto = this.$refs.newPhotoRef.files[0];
+      const newPhotoFormData = new FormData();
+      newPhotoFormData.append("photo", newPhoto);
+      httpClient.post(`/employees/${this.employee.employee_id}/photo`, newPhotoFormData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
