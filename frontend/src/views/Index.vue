@@ -54,7 +54,7 @@ export default {
       return employees;
     },
     makeSearch() {
-      if (!this.search.type || !this.search.value) {
+      if (!this.search.type) {
         return;
       }
       const result2 = this.employees.map((employee) => {
